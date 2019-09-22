@@ -3,23 +3,23 @@ using System.Collections.Generic;
 
 namespace KeyValueStore
 {
-    struct KeyValue
+    struct KeyValue<T>
     {
         public string Key { get; }
-        public object Value { get; }
+        public T Value;
 
-        public KeyValue(string key, object value)
+        public KeyValue(string key, T value)
         {
             this.Key = key;
             this.Value = value;
 
         }
     }
-    public class MyDictionary
+    public class MyDictionary<T>
     {
         public int storedValues;
-        KeyValue[] arr = new KeyValue[7];
-        public object this[string key]
+        KeyValue<T>[] arr = new KeyValue<T>[7];
+        public T this[string key]
         {
             get
             {
@@ -40,7 +40,7 @@ namespace KeyValueStore
                     //
                     if (arr[i].Key == key)
                     {
-                        arr[i] = new KeyValue(key, value);
+                        arr[i] = new KeyValue<T>(key, value);
 
                     }
                 }
@@ -50,7 +50,7 @@ namespace KeyValueStore
                 {
                     if (arr[i].Key == null)
                     {
-                        arr[i] = new KeyValue(key, value);
+                        arr[i] = new KeyValue<T>(key, value);
                         storedValues++;
                         return;
                     }
@@ -64,7 +64,7 @@ namespace KeyValueStore
     {
         static void Main()
         {
-            var d = new MyDictionary();
+            var d = new MyDictionary<object>();
             try
             {
                 Console.WriteLine(d["Cats"]);
